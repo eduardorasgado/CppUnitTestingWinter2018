@@ -121,3 +121,8 @@ TEST_CASE("find integers < 4000 when requiring raw data, returns a map of Sensor
     // ASSERT
     REQUIRE(mySensors.size() <= sensorNames.size());
 }
+
+TEST_CASE("Check integers < 2000 when requiring raw data, returns a int vector")
+{
+    REQUIRE(2 == 2);
+}
