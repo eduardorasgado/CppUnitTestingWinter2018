@@ -86,3 +86,33 @@ TEST_CASE("<Called> with empty list --> return false") { REQUIRE(1 == 1); }
 TEST_CASE("<Should> throw exception <When> nullptr") { REQUIRE(1 == 1); }
 TEST_CASE("<Called> with empty list --> return true") { REQUIRE(1 == 1); }
 TEST_CASE("<Should> throw exception <When> invalid Game mode") { REQUIRE(1 == 1); }
+
+/* TAGS
+ *
+ * Tags are a simple way to group tests
+ * Additional string associated with test case
+ *  -must begin with an alpha numeric character
+ * tags names are not casee sensitive
+ * */
+
+TEST_CASE("find integers < 4000 when requiring raw data, returns a map of Sensor objects")
+{
+    // ARRANGE
+    // sensor names
+    std::string sensor1 = "camara";
+    std::string sensor2 = "IMU";
+    std::string sensor3 = "PIR";
+
+    //where to store sensors passed
+    auto mySensors = std::map<std::string, int>();
+    auto sensorsVector = std::vector<std::pair<std::string, int>>();
+
+    // ACT
+    // metrics for each sensor
+    auto s1metric = std::pair<std::string, int>(sensor1, 1000);
+    auto s2metric = std::pair<std::string, int>(sensor2, 400);
+    auto s3metric = std::pair<std::string, int>(sensor3, 1200);
+
+
+    // ASSERT
+}
