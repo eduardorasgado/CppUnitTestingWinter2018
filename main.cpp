@@ -99,20 +99,25 @@ TEST_CASE("find integers < 4000 when requiring raw data, returns a map of Sensor
 {
     // ARRANGE
     // sensor names
-    std::string sensor1 = "camara";
-    std::string sensor2 = "IMU";
-    std::string sensor3 = "PIR";
+    std::vector<std::string> sensorNames{"camera", "IMU", "PIR", "Encoder", "Fotoresistencia"};
 
     //where to store sensors passed
     auto mySensors = std::map<std::string, int>();
+    // storing all measurements for sensors
     auto sensorsVector = std::vector<std::pair<std::string, int>>();
 
     // ACT
     // metrics for each sensor
-    auto s1metric = std::pair<std::string, int>(sensor1, 1000);
-    auto s2metric = std::pair<std::string, int>(sensor2, 400);
-    auto s3metric = std::pair<std::string, int>(sensor3, 1200);
+    for (int i = 0; i < sensorNames.size(); ++i) {
+        auto sensorMetric = std::pair<std::string, int>(sensorNames[i], 1000*(i+1));
+        sensorsVector.push_back(sensorMetric);
+    }
+    // adding elements > 2000 to map
+    for(auto& s : sensorsVector) if(s.second > 2000) mySensors.insert(s);
 
+    // showing elements added to sensor map
+    for(auto& e : mySensors) std::cout << "SENSOR: " << e.first << " | MEASUREMENT: "  << e.second << std::endl;
 
     // ASSERT
+    REQUIRE(mySensors.size() <= sensorNames.size());
 }
