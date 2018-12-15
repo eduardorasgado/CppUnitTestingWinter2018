@@ -93,9 +93,18 @@ TEST_CASE("<Should> throw exception <When> invalid Game mode") { REQUIRE(1 == 1)
  * Additional string associated with test case
  *  -must begin with an alpha numeric character
  * tags names are not casee sensitive
+ *
+ * UseTags to categorize test
+ *  By code under test(DB, Model, Customer)
+ *  By test type(Unit, Integration, Scenario)
+ *  By execution speed(Slow, Fast)
+ *
+ *  How to call a tag using command line:
+ *      ./CppUnitTesting18 "[CONTROLLER]"
+ *      ./CppUnitTesting18 "[AGENT]"
  * */
 
-TEST_CASE("find integers < 4000 when requiring raw data, returns a map of Sensor objects")
+TEST_CASE("find integers < 4000 when requiring raw data, returns a map of Sensor objects", "[CONTROLLER]")
 {
     // ARRANGE
     // sensor names
@@ -122,7 +131,17 @@ TEST_CASE("find integers < 4000 when requiring raw data, returns a map of Sensor
     REQUIRE(mySensors.size() <= sensorNames.size());
 }
 
-TEST_CASE("Check integers < 2000 when requiring raw data, returns a int vector")
+TEST_CASE("Check integers < 2000 when requiring raw data, returns a int vector", "[CONTROLLER]")
+{
+    REQUIRE(2 == 2);
+}
+
+TEST_CASE("Sorting all messages onWait, when customer broker calls then return a vector", "[AGENT]")
+{
+    REQUIRE(2 == 2);
+}
+
+TEST_CASE("Checking reconnection when connection goes off in all rooms in server 3, return vector of integer room ids", "[AGENT]")
 {
     REQUIRE(2 == 2);
 }
