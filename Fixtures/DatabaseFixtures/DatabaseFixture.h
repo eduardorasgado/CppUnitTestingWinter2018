@@ -7,9 +7,22 @@
 #include "../../dependencies/catch.h"
 
 /*
+ * TEST FIXTURES
+ *
  * Fixtures are a way to avoid repeating code in Testing
  *
- * By:
+ * Reduce code duplication:
+ *      -Preconditions
+ *      -Cleanup after each test
+ *      - Provide common operation
+ *      -Common state/enviroment
+ *
+ * Group code in logical units
+ *      -Group related tests
+ *      -  Use inherintance for utility code
+ *
+ * Hide uninteresting conde
+ *      -Usually in Integration tests
  *
  * */
 
@@ -58,7 +71,8 @@ class DatabaseFixture {
         int UserIsInDB(std::vector<std::string>);
 };
 
-TEST_CASE_METHOD(DatabaseFixture, "Database reconnection")
+// Fixture tests have a name and tags as a common test
+TEST_CASE_METHOD(DatabaseFixture, "Database reconnection", "[FIXTURES]")
 {
     // TEST_CASE_METHOD calls constructor and destructor automatically
     // in every TEST, so it creates and destructs an object every test
@@ -68,14 +82,14 @@ TEST_CASE_METHOD(DatabaseFixture, "Database reconnection")
 
 }
 
-TEST_CASE_METHOD(DatabaseFixture, "Database: Inserting data")
+TEST_CASE_METHOD(DatabaseFixture, "Database: Inserting data", "[FIXTURES]")
 {
     auto data = DatabaseFixture::NewUsers;
     // simulating data insertion
     CHECK(DatabaseFixture::insertingData("Users", data));
 }
 
-TEST_CASE_METHOD(DatabaseFixture, "Database: Updating data")
+TEST_CASE_METHOD(DatabaseFixture, "Database: Updating data", "[FIXTURES]")
 {
     // Showing new members
     for(auto& u : DatabaseFixture::NewUsers) std::cout << u << " ";
