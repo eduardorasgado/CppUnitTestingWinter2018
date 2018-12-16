@@ -29,8 +29,9 @@ bool DatabaseFixture::insertingData(std::string TABLE, std::vector<std::string> 
         // inserting into database
         UsersTable.push_back(data.at(i));
     }
-    if(data.size() == 0) return false;
-    return true;
+    // if all users were inserted into DB
+    if(data.size() == UsersTable.size()) return true;
+    return false;
 }
 
 bool DatabaseFixture::updatingData(std::string TABLE, std::vector<std::string> updateMember) {
