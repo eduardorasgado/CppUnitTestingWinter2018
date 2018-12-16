@@ -42,12 +42,25 @@ class DatabaseFixture {
 
         }
 
-        void connectToDB();
-        void disconnectToDB();
-
+        bool connectToDB();
+        bool disconnectToDB();
+        bool insertingData(std::string, std::vector<std::string>);
+        bool updatingData(std::string, std::vector<std::string>);
 };
 
-TEST_CASE_METHOD(DatabaseFixture, "Database Testing")
+TEST_CASE_METHOD(DatabaseFixture, "Database reconnection")
 {
     //
+    auto mydb = DatabaseFixture();
+
+    CHECK(mydb.connectToDB());
 }
+
+TEST_CASE_METHOD(DatabaseFixture, "Database: Inserting data")
+{
+    auto mydb = DatabaseFixture();
+    std::vector<std::string> NewUsers{"Lalo", "Freddy", "Leonard"};
+
+    CHECK(mydb.insertingData("Users", NewUsers));
+}
+
