@@ -2,19 +2,30 @@
 // Created by cheetos on 16/12/18.
 //
 
+#include <memory>
+#include <iostream>
+
 #include "../dependencies/catch.h"
 
 //lets create a class
-class myClass
+class MyClass
 {
-    public:
+    private:
         int myInt;
         double mydouble;
+    public:
+        MyClass(int myInt, double myDouble): myInt{myInt}, mydouble{myDouble} {}
 
-        myClass(int myInt, double myDouble): myInt{myInt}, mydouble{myDouble} {}
+        ~MyClass() { }
 
-        ~myClass() { }
+        std::string showData()
+        {
+            auto integerString = std::to_string(this->myInt);
+            auto doubleString = std::to_string(this->mydouble);
 
+            std::string dataInString = integerString + " | " + doubleString;
+            return dataInString;
+        }
 };
 
 /*
@@ -28,6 +39,6 @@ class myClass
 
 TEST_CASE("<Check> if two classes have same values", "[MODELS]")
 {
-
+    //auto c1 = std::make_shared<>
 }
 
