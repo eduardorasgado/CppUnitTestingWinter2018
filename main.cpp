@@ -158,6 +158,11 @@ TEST_CASE("Checking reconnection when connection goes off in all rooms in server
  *      example: [.nameTest]
  *
  *      [!shouldfail] -> Reverse failing logic(pass if fail)
+ *      [!mayfail] Does not fail the test if assetion fails
+ *      [#<filename>] -# filename  -> will execute the test with that file
+ *
+ *  command:
+ *      ./CppUnitTesting18 -t // list all tags
  * */
 
 TEST_CASE("Checking the carrier module do not crash if full data is "
@@ -172,3 +177,14 @@ TEST_CASE("Checking the carrier module do not crash if full data is "
     REQUIRE(1 ==1);
 }
 
+/*
+ * CREATE TAG ALIASES
+ *
+ * It could be a easy way to execute a group of tags
+ * We can execute some certain complex group of tags easily
+ * */
+
+CATCH_REGISTER_TAG_ALIAS("[@abc]", "[a],[b]~[c]");
+
+// execute all the test in controller and agent tags
+CATCH_REGISTER_TAG_ALIAS("[@service]","[CONTROLLER], [AGENT]");
