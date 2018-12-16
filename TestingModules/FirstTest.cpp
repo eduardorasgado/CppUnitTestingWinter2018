@@ -1,6 +1,7 @@
 //
 // Created by cheetos on 15/12/18.
 //
+
 #include "../dependencies/catch.h"
 
 // First test: checking if framework is working
