@@ -26,11 +26,12 @@
 TEST_CASE("Checking the carrier module do not crash if full data is "
 "called from redis(input is empty json and returns std::vector<mesasurement>)", "[!throws]")
 {
-for (int i = 0; i < 100000000; ++i) {
-// do nothing but simulates a slow test
-for (int i = 0; i < 40; ++i) {
+    for (int i = 0; i < 100000000; ++i) {
+        // do nothing but simulates a slow test
+        for (int i = 0; i < 10; ++i) {
 
+        }
+    }
+    REQUIRE(1 ==1);
 }
-}
-REQUIRE(1 ==1);
-}
+

@@ -17,3 +17,17 @@ CATCH_REGISTER_TAG_ALIAS("[@abc]", "[a],[b]~[c]");
 
 // execute all the test in controller and agent tags
 CATCH_REGISTER_TAG_ALIAS("[@service]","[CONTROLLER], [AGENT]");
+
+/*
+ * More Command line arguments
+ *
+ * -h, -?, --help
+ *
+ * -f, --input file <filename>
+ *
+ * -o, --out <filename>
+ *
+ * -b, --break
+ *
+ * -a, --abort
+ * */
