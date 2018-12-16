@@ -4,29 +4,9 @@
 
 #include <memory>
 #include <iostream>
+#include <cstdlib>
 
 #include "../dependencies/catch.h"
-
-//lets create a class
-class MyClass
-{
-    private:
-        int myInt;
-        double mydouble;
-    public:
-        MyClass(int myInt, double myDouble): myInt{myInt}, mydouble{myDouble} {}
-
-        ~MyClass() { }
-
-        std::string showData()
-        {
-            auto integerString = std::to_string(this->myInt);
-            auto doubleString = std::to_string(this->mydouble);
-
-            std::string dataInString = integerString + " | " + doubleString;
-            return dataInString;
-        }
-};
 
 /*
  * In order to compare two complex classes in a REQUIRE or CHECK
@@ -35,10 +15,36 @@ class MyClass
  *
  * To avoid this
  * {?} == {?}
+ * or this
+ * 0x56540528ee40 == 0x5654052900f0
+ *
+ * We create STRING CONVERSIONS
  * */
+
+#include "../Models/MyClass.h"
+
+// traditional method by using Operator << overloading for std::ostream
+std::ostream& operator<< (std::ostream& os, std::shared_ptr<MyClass> const obj)
+{
+    // no need to const casting because shared_ptr handles it
+    os << obj->showData();
+    return os;
+}
+
 
 TEST_CASE("<Check> if two classes have same values", "[MODELS]")
 {
-    //auto c1 = std::make_shared<>
+    auto c1 = std::make_shared<MyClass>(4,2324232.43643);
+    auto c2 = std::make_shared<MyClass>(5,2223423432.343);
+
+    //do not fail
+    //auto c3 = c1;
+
+    // make it fail
+    auto c3 = std::make_shared<MyClass>(4,2324232.43643);
+
+    // using operator<< overloading above, c1 and c3 is printed like a string
+    // in test output
+    REQUIRE(c1 == c3);
 }
 
