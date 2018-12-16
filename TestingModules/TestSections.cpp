@@ -6,6 +6,12 @@
 
 /*
  * INTRODUCING TO SECTIONS
+ *
+ * Each section is executed independently
+ * Enable reuse
+ * Easy to read
+ * Easy to maintain
+ * Suports nested sections: sections can have sections
  * */
 
 TEST_CASE("<Check> if Djakstra algorithm returns a vector including if empty", "[ALGORITHMS]")
@@ -22,5 +28,23 @@ TEST_CASE("<Check> if Djakstra algorithm returns a vector including if empty", "
     {
         // TEST CODE
         CHECK(false);
+    }
+
+    SECTION("Algorithm Djakstra performs step 3")
+    {
+        // Nested sections are allowed but we should be careful about
+        // this use case
+
+        SECTION("STEP 3.1")
+        {
+            // TEST INDEPENDENT
+            CHECK(true);
+        }
+
+        SECTION("STEP 3.2")
+        {
+            // TEST INDEPENDENT
+            CHECK(false);
+        }
     }
 }
