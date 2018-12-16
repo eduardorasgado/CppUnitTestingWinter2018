@@ -13,8 +13,10 @@
  *
  * */
 
+#include <iostream>
+
 class DatabaseFixture {
-    private:
+    public:
         // Common setup code
         int isConnected;
         std::string HostName;
@@ -23,8 +25,11 @@ class DatabaseFixture {
         std::string DBEngine;
         std::string User;
         std::string Password;
+        std::vector<std::string> NewUsers;
+        std::string userToUpdate;
+        // DATABASE OBJECT FROM MODEL IN PROJECT TESTED
+        // SHOULD BE HERE, OTHERWISE FIXTURE MAKES NO SENSE
 
-    public:
         DatabaseFixture()
         {
             DBEngine = "MySQL";
@@ -33,6 +38,8 @@ class DatabaseFixture {
             Port = 3036;
             Password = "InsecureAsFack";
             DBName = "TappDB";
+            userToUpdate = "Lalo";
+            insertingDataToNewUsers();
             connectToDB();
         }
         ~DatabaseFixture()
@@ -44,8 +51,10 @@ class DatabaseFixture {
 
         bool connectToDB();
         bool disconnectToDB();
+        void insertingDataToNewUsers();
         bool insertingData(std::string, std::vector<std::string>);
         bool updatingData(std::string, std::vector<std::string>);
+        int UserIsInDB(std::vector<std::string>);
 };
 
 TEST_CASE_METHOD(DatabaseFixture, "Database reconnection")
@@ -59,8 +68,32 @@ TEST_CASE_METHOD(DatabaseFixture, "Database reconnection")
 TEST_CASE_METHOD(DatabaseFixture, "Database: Inserting data")
 {
     auto mydb = DatabaseFixture();
-    std::vector<std::string> NewUsers{"Lalo", "Freddy", "Leonard"};
+    auto data = mydb.NewUsers;
+    CHECK(mydb.insertingData("Users", data));
+}
 
-    CHECK(mydb.insertingData("Users", NewUsers));
+TEST_CASE_METHOD(DatabaseFixture, "Database: Updating data")
+{
+    // ARRANGE
+    auto mydb = DatabaseFixture();
+
+    // ACT
+    auto data = mydb.NewUsers;
+    // inserting data to be replaced
+    mydb.insertingData("Users", data);
+
+    // Showing new members
+    for(auto& u : mydb.NewUsers) std::cout << u << " ";
+    std::cout << std::endl;
+
+    // old name and new name
+    std::vector<std::string> dupleUser{mydb.userToUpdate, "Eduardo"};
+
+    // ASSERT
+    CHECK(mydb.updatingData("Users", dupleUser));
+
+    // showing updated list
+    for(auto& u : mydb.NewUsers) std::cout << u << " ";
+    std::cout << std::endl;
 }
 
