@@ -24,7 +24,11 @@ void DatabaseFixture::insertingDataToNewUsers() {
 bool DatabaseFixture::insertingData(std::string TABLE, std::vector<std::string> data) {
     // logic to insert data into database
     // creating query
-
+    for(int i = 0; i < data.size(); ++i)
+    {
+        // inserting into database
+        UsersTable.push_back(data.at(i));
+    }
     if(data.size() == 0) return false;
     return true;
 }

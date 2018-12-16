@@ -29,6 +29,7 @@ class DatabaseFixture {
         std::string userToUpdate;
         // DATABASE OBJECT FROM MODEL IN PROJECT TESTED
         // SHOULD BE HERE, OTHERWISE FIXTURE MAKES NO SENSE
+        std::vector<std::string> UsersTable;
 
         DatabaseFixture()
         {
@@ -46,7 +47,7 @@ class DatabaseFixture {
         {
             //common teardown code
             disconnectToDB();
-
+            std::cout << "DB dies" << std::endl;
         }
 
         bool connectToDB();
@@ -59,41 +60,36 @@ class DatabaseFixture {
 
 TEST_CASE_METHOD(DatabaseFixture, "Database reconnection")
 {
-    //
-    auto mydb = DatabaseFixture();
+    // TEST_CASE_METHOD calls constructor and destructor automatically
+    // in every TEST, so it creates and destructs an object every test
+    std::cout << "users in waiting list:" << DatabaseFixture::NewUsers.size() << std::endl;
 
-    CHECK(mydb.connectToDB());
+    CHECK(DatabaseFixture::connectToDB());
+
 }
 
 TEST_CASE_METHOD(DatabaseFixture, "Database: Inserting data")
 {
-    auto mydb = DatabaseFixture();
-    auto data = mydb.NewUsers;
-    CHECK(mydb.insertingData("Users", data));
+    auto data = DatabaseFixture::NewUsers;
+    // simulating data insertion
+    CHECK(DatabaseFixture::insertingData("Users", data));
 }
 
 TEST_CASE_METHOD(DatabaseFixture, "Database: Updating data")
 {
-    // ARRANGE
-    auto mydb = DatabaseFixture();
-
-    // ACT
-    auto data = mydb.NewUsers;
-    // inserting data to be replaced
-    mydb.insertingData("Users", data);
-
     // Showing new members
-    for(auto& u : mydb.NewUsers) std::cout << u << " ";
+    for(auto& u : DatabaseFixture::NewUsers) std::cout << u << " ";
     std::cout << std::endl;
 
     // old name and new name
-    std::vector<std::string> dupleUser{mydb.userToUpdate, "Eduardo"};
+    std::vector<std::string> dupleUser{DatabaseFixture::userToUpdate, "Eduardo"};
 
     // ASSERT
-    CHECK(mydb.updatingData("Users", dupleUser));
+    CHECK(DatabaseFixture::updatingData("Users", dupleUser));
 
     // showing updated list
-    for(auto& u : mydb.NewUsers) std::cout << u << " ";
+    for(auto& u : DatabaseFixture::NewUsers) std::cout << u << " ";
     std::cout << std::endl;
 }
+
 
