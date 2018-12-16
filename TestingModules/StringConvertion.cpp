@@ -23,7 +23,7 @@
 
 #include "../Models/MyClass.h"
 
-// traditional method by using Operator << overloading for std::ostream
+ //traditional method by using Operator << overloading for std::ostream
 std::ostream& operator<< (std::ostream& os, std::shared_ptr<MyClass> const obj)
 {
     // no need to const casting because shared_ptr handles it
@@ -31,6 +31,15 @@ std::ostream& operator<< (std::ostream& os, std::shared_ptr<MyClass> const obj)
     return os;
 }
 
+
+//Catch::toString Overload
+//namespace Catch
+//{
+//    std::string toString(MyClass& obj)
+//    {
+//        return obj.showData();
+//    }
+//}
 
 TEST_CASE("<Check> if two classes have same values", "[MODELS]")
 {
