@@ -24,6 +24,10 @@
  * Hide uninteresting conde
  *      -Usually in Integration tests
  *
+ * WHEN to Use Test Fixtures
+ *      -In integration test, for example in database cases
+ *      -Create hierarchy: create utility methods for the initializations
+ *
  * */
 
 #include <iostream>
